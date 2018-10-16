@@ -1,0 +1,67 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="dummy_pipeline.list">
+      <field name="name">dummy product list</field>
+      <field name="model">dummy.product</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="total_cost"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="dummy_pipeline.action_window">
+      <field name="name">dummy product window</field>
+      <field name="res_model">dummy.product</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="dummy_pipeline" id="dummy_pipeline.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Menu 1" id="dummy_pipeline.menu_1" parent="dummy_pipeline.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="List" id="dummy_pipeline.menu_1_list" parent="dummy_pipeline.menu_1"
+              action="dummy_pipeline.action_window"/>
+
+
+    <!-- wizard -->
+    <record model="ir.ui.view" id="date_wizard_form">
+      <field name="name">dummy date wizard form</field>
+      <field name="model">dummy.date.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Set Date">
+          <sheet>
+            <field name="default_date_period"/>            
+            <field name="default_date_fiscal"/>
+          </sheet>
+          <footer>
+            <button name='execute'
+                string='OK'
+                class='btn-primary'
+                type='object'/>
+            <button string='Cancel'
+                class='btn-default'
+                special='cancel'/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <act_window id="action_wizard_date"
+              name="Set Date"
+              res_model="dummy.date.wizard"
+              view_mode="form"
+              target="new"/>
+    <menuitem name="List" id="date_wizard_form" parent="dummy_pipeline.menu_1"
+              action="action_wizard_date"/>
+
+  </data>
+</odoo>
